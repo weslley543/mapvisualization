@@ -1,15 +1,16 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Card } from 'antd';
 import api from "../../../../services/api";
+import { Link } from "react-router-dom";
 import {
-  DesktopOutlined,
+  DesktopOutlined, RadarChartOutlined
 } from '@ant-design/icons';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 const { Header, Content, Footer, Sider } = Layout;
 
-export class Dashboard extends React.Component {
+export class Mapa extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,19 +72,27 @@ export class Dashboard extends React.Component {
       })
     }
   };
+
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1">
+          <Menu theme="dark" defaultSelectedKeys={['2']} mode="inline">
+            <Menu.Item key="1">
               <DesktopOutlined />
+              <Link to='/dashboard' />
               <span>Inicio</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <DesktopOutlined />
+              <RadarChartOutlined />
+              <Link to='/mapa' />
               <span>Mapa</span>
+            </Menu.Item>
+            <Menu.Item key="3">
+            <RadarChartOutlined />
+              <span>Caminhões</span>
+              <Link to='/caminhoes' />
             </Menu.Item>
 
           </Menu>
@@ -110,17 +119,17 @@ export class Dashboard extends React.Component {
 
                     )
                   }
-                    
+
                   )}
-               
-               <InfoWindow
+
+                  <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
                   >
                     <div>
                       <h1>{this.state.activeMarker.name}</h1>
                       <p>{this.state.activeMarker.description}</p>
-                      <img src={`${this.state.activeMarker.imgdata}`} width='400' height='400' alt={this.state.activeMarker.description}/>
+                      <img src={`${this.state.activeMarker.imgdata}`} width='400' height='400' alt={this.state.activeMarker.description} />
                     </div>
                   </InfoWindow>
 
@@ -139,4 +148,4 @@ export class Dashboard extends React.Component {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyBaG6NaaWPThrm4Htf3V2J9vA-QVhwpKRY'
-})(Dashboard);
+})(Mapa);
